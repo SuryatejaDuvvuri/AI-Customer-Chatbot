@@ -13,10 +13,7 @@ If you have any feedback, please reach out to one of the authors.
 - [Suryateja Duvvuri](https://www.github.com/suryatejaduvvuri)
 - [Anand Theertha](https://github.com/Anand-Theertha)
 - [Deepak Jhawar](https://github.com/DeepakJhawar)
-- [Gerald Webster](https://github.com/geraldwebster)
 
-## Demo
-[![Demo]
 ## Installation
 
 First, run the development server:
