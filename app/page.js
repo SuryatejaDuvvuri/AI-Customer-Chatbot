@@ -1,8 +1,10 @@
 'use client'
 import { useState } from 'react';
+import { OpenAI } from "@langchain/openai";
 
 export default function Home() {
 
+  
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {
@@ -11,7 +13,8 @@ export default function Home() {
     },
   ])
   const sendMessage = async () => {
-
+    const llm = new OpenAI({ modelName: "gpt-3.5-turbo" });
+    await llm.invoke("Hello, world!");
   }
   return (
   <div class="w-screen h-screen flex flex-col justify-center items-center">
@@ -35,6 +38,7 @@ export default function Home() {
     <div class="flex flex-row space-x-2">
       <input
         type="text"
+        color = "black"
         placeholder="Message"
         class="w-full"
         value={message}
