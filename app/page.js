@@ -1,13 +1,10 @@
 'use client'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import {NextResponse} from 'next/server'
 import { OpenAI } from "openai";
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export default function Home() {
 
-  
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {
@@ -15,26 +12,64 @@ export default function Home() {
       content: "Hi! I'm the Headstarter support assistant. How can I help you today?",
     },
   ])
+  const [loading, setLoading] = useState(false);
   const sendMessage = async () => {
-
+    if(message === '') return;
+    setLoading(true);
+    setMessage('');
+    setMessages([...messages, { role: 'user', content: message }]);
     
-    const openai = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-      apiKey: process.env.OPENAI_API_KEY,
-    })
-    // await llm.invoke("Hello, world!");
-    const completion = await openai.chat.completions.create({
-      model: "openai/gpt-3.5-turbo",
-      messages: [
-      {
-        role: 'user',
-        content: "Hi! How are you doing?",
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+      if (!apiKey) {
+        console.error('The OPENAI_API_KEY environment variable is missing or empty.');
+        return;
       }
-      ],
-    })
+      const openai = new OpenAI({
+        baseURL: "https://openrouter.ai/api/v1",
+        apiKey: apiKey,
+        dangerouslyAllowBrowser: true
+      })
+      const completion = await openai.chat.completions.create({
+        model: "meta-llama/llama-3.1-8b-instruct:free",
+        messages: [
+      { role: 'assistant', content: "Hi! I'm the Headstarter support assistant. How can I help you today?" },
+      { role: 'user', content: message }
+        ],
+      });
 
-    console.log(completion.choices[0].message)
+      const response = completion.choices[0].message.content;
+      setMessages((messages) => [
+        ...messages,
+        { role: 'assistant', content: response }
+      ]);
+    }catch (error) {
+        console.error(error);
+        setMessages([
+          ...messages,
+          {
+            role: 'assistant',
+            content: 'I am sorry but I am unable to process your message at the moment.'
+      }])
+    }
+    setLoading(false);
   }
+
+  const keyHandler = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  const messageEnding = useRef(null);
+  const scroll = () => {
+    messageEnding.current.scrollIntoView({ behavior: 'smooth' });
+  }
+    useEffect(() => {
+      scroll();
+  }, [messages]);
+
   return (
   <div className="w-screen h-screen flex flex-col justify-center items-center">
   <div className="flex flex-col w-[500px] h-[700px] border border-white p-2 space-y-3">
@@ -61,12 +96,13 @@ export default function Home() {
         color='black'
         className="w-full border border-white text-black rounded-xl p-3" // make the text black
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={(e) => setMessage(e.target.value)} disabled = {loading}
       />
-      <button className="btn btn-contained" onClick={sendMessage}>
+      <button className="btn btn-contained" onClick={sendMessage} disabled = {loading}>
         Send
       </button>
     </div>
+    <div ref={messageEnding}></div>
   </div>
 </div>
 

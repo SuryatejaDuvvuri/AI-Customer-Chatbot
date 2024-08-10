@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "local": "env-cmd -f environments/.env.local node server.js"
   },
   "dependencies": {
     "@langchain/openai": "^0.2.6",
