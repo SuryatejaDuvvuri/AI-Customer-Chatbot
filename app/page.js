@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { OpenAI } from "openai";
-import { PineconeClient } from "@pinecone-database/pinecone"; 
+// import { PineconeClient } from "@pinecone-database/pinecone"; 
 // import { OpenAIEmbeddings } from "langchain";
 
 export default function Home() {
@@ -34,9 +34,9 @@ export default function Home() {
 
     try {
       // Initialize Pinecone
-      const pinecone = new PineconeClient({
-        apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY,
-      });
+      // const pinecone = new PineconeClient({
+      //   apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY,
+      // });
 
 
       const openai = new OpenAI({
@@ -45,28 +45,28 @@ export default function Home() {
         dangerouslyAllowBrowser: true,
       });
 
-      const embeddings = new OpenAIEmbeddings({ openai });
-      const queryEmbedding = await embeddings.embedQuery(userMessage);
+      // const embeddings = new OpenAIEmbeddings({ openai });
+      // const queryEmbedding = await embeddings.embedQuery(userMessage);
 
-      const index = pinecone.index("chatbot");
-      const response = await index.query({
-        vector: queryEmbedding,
-        topK: 1,
-      });
+      // const index = pinecone.index("chatbot");
+      // const response = await index.query({
+      //   vector: queryEmbedding,
+      //   topK: 1,
+      // });
 
-      const contexts = response.matches.map(match => match.metadata.text).join("\n\n-------\n\n");
-      const augmentedQuery = `<CONTEXT>\n${contexts}\n-------\n</CONTEXT>\n\nMY QUESTION:\n${userMessage}`;
+      // const contexts = response.matches.map(match => match.metadata.text).join("\n\n-------\n\n");
+      // const augmentedQuery = `<CONTEXT>\n${contexts}\n-------\n</CONTEXT>\n\nMY QUESTION:\n${userMessage}`;
 
       const completion = await openai.chat.completions.create({
         model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
           {
             role: 'system',
-            content: "You are an expert personal assistant. Answer any questions I have about the provided context.",
+            content: "You are a Headstarter AI assistant that is expert in coding, and answering any computer science concepts and questions. Answer any questions I have about the provided context.",
           },
           {
             role: 'user',
-            content: augmentedQuery,
+            content: message,
           },
         ],
       });
