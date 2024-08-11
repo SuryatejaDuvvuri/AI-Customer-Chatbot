@@ -1,7 +1,7 @@
 
 # AI Customer Chatbot
 
-This project focuses on the fundamentals of making a chatbot with the integration of OpenAI API. 
+This is our third project for the Headstarter Fellowship project which focuses on the fundamentals of making a chatbot with the integration of OpenAI API. We tried to implement RAG and deploy it on AWS, but with problems and time and other commitments, we were unable to deploy it on time, so we deployed it on Vercel for demo. 
 
 
 ## Feedback
@@ -16,7 +16,7 @@ If you have any feedback, please reach out to one of the authors.
 - [Gerald Webster](https://github.com/geraldwebster)
 
 ## Demo
-[![Demo]
+[![Demo](https://youtu.be/f4MMq0viLpQ)]
 ## Installation
 
 First, run the development server:
