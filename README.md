@@ -16,7 +16,7 @@ If you have any feedback, please reach out to one of the authors.
 - [Gerald Webster](https://github.com/geraldwebster)
 
 ## Demo
-[![Demo](https://youtu.be/f4MMq0viLpQ)]
+[![Demo]](https://youtu.be/f4MMq0viLpQ)
 ## Installation
 
 First, run the development server:
