@@ -13,12 +13,10 @@ If you have any feedback, please reach out to one of the authors.
 - [Suryateja Duvvuri](https://www.github.com/suryatejaduvvuri)
 - [Anand Theertha](https://github.com/Anand-Theertha)
 - [Deepak Jhawar](https://github.com/DeepakJhawar)
-- [Gerald Webster](https://github.com/geraldwebster)
 
 ## Demo
-[![Demo]](https://youtu.be/f4MMq0viLpQ)
+[![Demo](https://github.com/user-attachments/assets/3a661004-5617-4e47-be88-5e7195061687)](https://youtu.be/f4MMq0viLpQ)
 ## Installation
-
 First, run the development server:
 
 ```bash
